@@ -12,6 +12,9 @@
             <intent-filter><action android:name="com.anddoes.launcher.THEME" /><category android:name="android.intent.category.DEFAULT" /></intent-filter>
             <intent-filter><action android:name="com.actionlauncher.THEME" /><category android:name="android.intent.category.DEFAULT" /></intent-filter>
             <meta-data android:name="com.novalauncher.THEME" android:resource="@xml/appfilter" />
+            <meta-data android:name="org.adw.launcher.THEMES" android:resource="@xml/appfilter" />
+            <meta-data android:name="com.anddoes.launcher.THEME" android:resource="@xml/appfilter" />
+            <meta-data android:name="com.actionlauncher.THEME" android:resource="@xml/appfilter" />
         </activity>
     </application>
 </manifest>
