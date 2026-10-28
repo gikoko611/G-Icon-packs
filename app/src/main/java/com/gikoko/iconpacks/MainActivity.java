@@ -34,9 +34,19 @@ public class MainActivity extends Activity {
     setContentView(scroll);
   }
   private Button button(String text){ Button b=new Button(this); b.setText(text); b.setTextColor(Color.BLACK); b.setAllCaps(false); b.setTextSize(14); b.setBackgroundTintList(android.content.res.ColorStateList.valueOf(gold)); LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(-1,-2); p.setMargins(0,7,0,7); b.setLayoutParams(p); return b; }
-  private void showLaunchers(){ Toast.makeText(this,"Choose a supported launcher below. One tap is handled by the launcher.",Toast.LENGTH_LONG).show(); }
+  private void showLaunchers(){
+    String[][] targets={{"Nova Launcher","com.teslacoilsw.launcher","com.novalauncher.THEME"},{"ADW Launcher","org.adw.launcher","org.adw.launcher.THEMES"},{"Apex Launcher","com.anddoes.launcher","com.anddoes.launcher.THEME"},{"Action Launcher","com.actionlauncher.playstore","com.actionlauncher.THEME"}};
+    for(String[] t:targets){
+      try { Intent i=new Intent(t[2]); i.setPackage(t[1]); i.addCategory(Intent.CATEGORY_DEFAULT); if(i.resolveActivity(getPackageManager())!=null){startActivity(i);return;} } catch(Exception ignored){}
+    }
+    Toast.makeText(this,"No supported launcher theme picker was found. Install a compatible launcher, then select G.I KO KO Gold Icons in its Icon/Theme settings. MIUI stock launcher may not support icon packs.",Toast.LENGTH_LONG).show();
+  }
   private void launchTheme(String name,String pkg){
-    try { Intent i = new Intent("com.novalauncher.THEME"); i.setPackage(pkg); i.addCategory(Intent.CATEGORY_DEFAULT); if(i.resolveActivity(getPackageManager())!=null){startActivity(i);return;} }
+    String action="com.novalauncher.THEME";
+    if(pkg.equals("org.adw.launcher")) action="org.adw.launcher.THEMES";
+    else if(pkg.equals("com.anddoes.launcher")) action="com.anddoes.launcher.THEME";
+    else if(pkg.equals("com.actionlauncher.playstore")) action="com.actionlauncher.THEME";
+    try { Intent i = new Intent(action); i.setPackage(pkg); i.addCategory(Intent.CATEGORY_DEFAULT); if(i.resolveActivity(getPackageManager())!=null){startActivity(i);return;} }
     catch(Exception ignored){}
     try { Intent i = getPackageManager().getLaunchIntentForPackage(pkg); if(i!=null){startActivity(i);Toast.makeText(this,"Open the launcher's icon/theme settings and select G.I KO KO Gold Icons.",Toast.LENGTH_LONG).show();return;} }
     catch(Exception ignored){}
